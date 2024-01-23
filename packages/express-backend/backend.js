@@ -1,8 +1,8 @@
 // backend.js
 import express from "express";
 
-const app = express();          // create an instance of Express
-const port = 8000;              // a constant to represent the port number we'll use to listen to incoming HTTP requests
+const app = express();
+const port = 8000;
 const users = {
     users_list: [
       {
@@ -33,12 +33,32 @@ const users = {
     ]
   };
 
-app.use(express.json());        // we set up our express app to process incoming data in JSON format
+  const findUserByName = (name) => {
+    return users["users_list"].filter(
+      (user) => user["name"] === name
+    );
+  };
 
-app.get("/users", (req, res) => {    // '/' is the URL pattern that will map to this endpoint
-                                // process the request and send a response to the client that called the REST API
-  res.send(users);
-});
+  app.get("/users", (req, res) => {
+    const name = req.query.name;
+    if (name != undefined) {
+      let result = findUserByName(name);
+      result = { users_list: result };
+      res.send(result);
+    } else {
+      res.send(users);
+    }
+  });
+
+app.use(express.json());
+
+app.get("/users", (req, res) => {
+    res.send(users);
+  });
+
+  app.get("/", (req, res) => {
+    res.json(users);
+  });
 
 app.listen(port, () => {
   console.log(
