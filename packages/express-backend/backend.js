@@ -29,6 +29,11 @@ const users = {
         id: "zap555",
         name: "Dennis",
         job: "Bartender"
+      },
+      {
+        "id": "qwe123",
+        "job": "Zookeeper",
+        "name": "Cindy"
       }
     ]
 };
@@ -39,7 +44,10 @@ const findUserByName = (name) => {
 };
 const findUserById = (id) =>
     users["users_list"].find((user) => user["id"] === id);
-
+const addUser = (user) => {
+    users["users_list"].push(user);
+    return user;
+};
 // Specific route handler for "/users/:id" should come before the general "/users" handler
 app.get("/users/:id", (req, res) => {
     const id = req.params["id"]; // or req.params.id
@@ -64,6 +72,12 @@ app.get("/users", (req, res) => {
 // Default route handler for the root path "/"
 app.get("/", (req, res) => {
     res.json(users);
+});
+// Accept the json data that comes in and use it to create a new object in the list
+app.post("/users", (req, res) => {
+    const userToAdd = req.body;
+    addUser(userToAdd);
+    res.send();
 });
 app.listen(port, () => {
     console.log(
