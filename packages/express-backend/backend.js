@@ -29,11 +29,6 @@ const users = {
         id: "zap555",
         name: "Dennis",
         job: "Bartender"
-      },
-      {
-        "id": "qwe123",
-        "job": "Zookeeper",
-        "name": "Cindy"
       }
     ]
 };
@@ -58,11 +53,35 @@ app.get("/users/:id", (req, res) => {
         res.send(result);
     }
 });
-// General route handler for "/users" (with query parameter)
+// DELETE operation to remove a user by ID
+app.delete("/users/:id", (req, res) => {
+    const id = req.params.id;
+    const index = users["users_list"].findIndex((user) => user["id"] === id);
+
+    if (index !== -1) {
+        // Remove the user
+        const removedUser = users["users_list"].splice(index, 1)[0];
+        res.send(`User with ID ${id} has been deleted`);
+    } else {
+        res.status(404).send("User not found");
+    }
+});
+// Find user with given name and given job 
 app.get("/users", (req, res) => {
     const name = req.query.name;
-    if (name != undefined) {
-        let result = findUserByName(name);
+    const job = req.query.job;
+
+    if (name || job) {
+        let result = users["users_list"];
+
+        if (name) {
+            result = result.filter((user) => user["name"] === name);
+        }
+
+        if (job) {
+            result = result.filter((user) => user["job"] === job);
+        }
+
         result = { users_list: result };
         res.send(result);
     } else {
@@ -73,6 +92,7 @@ app.get("/users", (req, res) => {
 app.get("/", (req, res) => {
     res.json(users);
 });
+
 // Accept the json data that comes in and use it to create a new object in the list
 app.post("/users", (req, res) => {
     const userToAdd = req.body;
