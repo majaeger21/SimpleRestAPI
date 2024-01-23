@@ -43,6 +43,8 @@ const addUser = (user) => {
     users["users_list"].push(user);
     return user;
 };
+
+
 // Specific route handler for "/users/:id" should come before the general "/users" handler
 app.get("/users/:id", (req, res) => {
     const id = req.params["id"]; // or req.params.id
@@ -59,9 +61,8 @@ app.delete("/users/:id", (req, res) => {
     const index = users["users_list"].findIndex((user) => user["id"] === id);
 
     if (index !== -1) {
-        // Remove the user
         const removedUser = users["users_list"].splice(index, 1)[0];
-        res.send(`User with ID ${id} has been deleted`);
+        res.send(`User ID ${id} deleted`);
     } else {
         res.status(404).send("User not found");
     }
@@ -97,8 +98,10 @@ app.get("/", (req, res) => {
 app.post("/users", (req, res) => {
     const userToAdd = req.body;
     addUser(userToAdd);
-    res.send();
+    res.status(201).json(userToAdd);
+    //res.send();
 });
+
 app.listen(port, () => {
     console.log(
         `Example app listening at http://localhost:${port}`
