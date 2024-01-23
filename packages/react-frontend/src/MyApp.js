@@ -15,8 +15,11 @@ import Form from "./Form";
         setCharacters(updated);
       }
 
-    function updateList(person) {
-        setCharacters([...characters, person]);
+      function updateList(person) {
+        // Check if the HTTP status code is 201
+        if (person.status === 201) {
+            setCharacters([...characters, person.data]);
+        }
     }
 
     return (
