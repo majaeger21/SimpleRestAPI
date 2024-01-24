@@ -15,22 +15,19 @@ import Form from "./Form";
     }, [] );
 
     function removeOneCharacter(id, index) {
-      // delete request 
       fetch(`http://localhost:8000/users/${id}`, {
           method: "DELETE",
       })
       .then((res) => {
           if (res.status === 204) {
-              // Successful delete request
               const updated = characters.filter((character, i) => i !== index);
               setCharacters(updated);
           } else if (res.status === 404) {
-              // Resource not found
               console.error("Resource not found");
           }
       })
       .catch((error) => {
-          console.error("Error deleting user:", error);
+          console.error(error);
       });
   }
   
@@ -56,8 +53,8 @@ import Form from "./Form";
 
       function updateList(person) {
         postUser(person)
-          .then((res) => res.json())  // Parse the JSON response
-          .then((json) => setCharacters([...characters, json]))  // Update state with the response
+          .then((res) => res.json()) 
+          .then((json) => setCharacters([...characters, json]))  
           .catch((error) => {
             console.log(error);
           });

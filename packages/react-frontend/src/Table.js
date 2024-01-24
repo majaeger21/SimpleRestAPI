@@ -15,7 +15,7 @@ function TableHeader() {
 
 function TableBody(props) {
   const rows = props.characterData.map((row, index) => {
-    const handleDelete = () => {
+    const catchDelete = () => {
       fetch(`http://localhost:8000/users/${row.id}`, {
         method: "DELETE",
       })
@@ -37,7 +37,7 @@ function TableBody(props) {
         <td>{row.job}</td>
         <td>{row.id}</td>
         <td>
-          <button onClick={handleDelete}>Delete</button>
+          <button onClick={catchDelete}>Delete</button>
         </td>
       </tr>
     );
