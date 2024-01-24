@@ -23,7 +23,7 @@ import Form from "./Form";
               const updated = characters.filter((character, i) => i !== index);
               setCharacters(updated);
           } else if (res.status === 404) {
-              console.error("Resource not found");
+              console.error("Resource not found.");
           }
       })
       .catch((error) => {

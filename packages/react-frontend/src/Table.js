@@ -23,7 +23,7 @@ function TableBody(props) {
           if (res.status === 204) {
             props.removeCharacter(index);
           } else if (res.status === 404) {
-            console.log("Resource not found"); 
+            console.log("Resource not found."); 
           }
         })
         .catch((error) => {
