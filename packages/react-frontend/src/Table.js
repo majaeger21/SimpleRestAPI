@@ -17,7 +17,7 @@ function TableBody(props) {
   const rows = props.characterData.map((row, index) => {
     const catchDelete = () => {
       props.removeCharacter(row.id, index);
-    };
+    };  // delete row 
 
     return (
       <tr key={index}>
