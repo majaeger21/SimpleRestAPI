@@ -20,8 +20,8 @@ import Form from "./Form";
       })
       .then((res) => {
           if (res.status === 204) {
-              const updated = characters.filter((character, i) => i !== index);
-              setCharacters(updated);
+            const updated = characters.filter((character) => character.id !== id);
+            setCharacters(updated);
           } else if (res.status === 404) {
               console.error("Resource not found.");
           }

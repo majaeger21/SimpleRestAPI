@@ -16,19 +16,7 @@ function TableHeader() {
 function TableBody(props) {
   const rows = props.characterData.map((row, index) => {
     const catchDelete = () => {
-      fetch(`http://localhost:8000/users/${row.id}`, {
-        method: "DELETE",
-      })
-        .then((res) => {
-          if (res.status === 204) {
-            props.removeCharacter(index);
-          } else if (res.status === 404) {
-            console.log("Resource not found."); 
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      props.removeCharacter(row.id, index);
     };
 
     return (
