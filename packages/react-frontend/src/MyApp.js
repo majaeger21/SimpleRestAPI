@@ -32,7 +32,7 @@ function MyApp() {
       });
   }
 
-  function postUser(person) {
+  function postUser(person) { //
     const promise = fetch("http://localhost:8000/users", {
       method: "POST",
       headers: {
