@@ -16,14 +16,14 @@ function TableHeader() {
 function TableBody(props) {
   const rows = props.characterData.map((row, index) => {
     const catchDelete = () => {
-      props.removeCharacter(row.id, index);
+      props.removeCharacter(row._id, index);
     };  // delete row 
 
     return (
       <tr key={index}>
         <td>{row.name}</td>
         <td>{row.job}</td>
-        <td>{row.id}</td>
+        <td>{row._id}</td>
         <td>
           <button onClick={catchDelete}>Delete</button>
         </td>
