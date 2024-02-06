@@ -2,7 +2,7 @@
 
 import express from "express";
 import cors from "cors";
-import userServices from "./user-services"; 
+import userServices from "./user-services.js"; 
 
 const app = express();
 const port = 8000;
@@ -28,7 +28,7 @@ app.get("/users/:id", (req, res) => {
 
 app.delete("/users/:id", (req, res) => {
   const id = req.params.id;
-  userServices.deleteUserById(id)
+  userServices.findByIdAndDelete(id)
     .then(() => {
       res.status(204).send();
     })
@@ -44,7 +44,7 @@ app.get("/users", (req, res) => {
 
   if (name && job) {
     // Fetch users by matching both name and job
-    userServices.findUserByNameAndJob(name, job)
+    userServices.findUserByNameandJob(name, job)
       .then((result) => {
         res.send({ users_list: result });
       })

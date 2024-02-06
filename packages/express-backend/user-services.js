@@ -1,7 +1,7 @@
 // user-services.js
 
 import mongoose from "mongoose";
-import userModel from "./user";
+import userModel from "./user.js";
 
 mongoose.set("debug", true);
 
@@ -27,6 +27,10 @@ function findUserById(id) {
     return userModel.findById(id);
 }
 
+function findByIdAndDelete(id){
+    return userModel.findByIdAndDelete(id);
+}
+
 function addUser(user) {
     const userToAdd = new userModel(user);
     const promise = userToAdd.save();
@@ -41,10 +45,16 @@ function findUserByJob(job) {
     return userModel.find({ job: job });
 }
 
+function findUserByNameandJob(name, job) {
+    return userModel.find({ name: name, job: job });
+}
+
 export default {
     addUser,
     getUsers,
     findUserById,
     findUserByName,
     findUserByJob,
+    findByIdAndDelete,
+    findUserByNameandJob
 };
